@@ -1,0 +1,54 @@
+{
+  "name": "takedown-frontend",
+  "version": "0.0.0",
+  "description": "Takedown frontend",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "precommit": "lint-staged"
+  },
+  "author": "Edgar Mueller",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-plugin-emotion": "^10.0.7",
+    "dotenv-webpack": "^1.7.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.4",
+    "prettier": "^1.16.4"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.7",
+    "@emotion/styled": "^10.0.7",
+    "@zeit/next-css": "^1.0.1",
+    "apollo-boost": "^0.4.0",
+    "apollo-client-preset": "^1.0.8",
+    "apollo-link-context": "^1.0.17",
+    "cloudinary-react": "^1.1.4",
+    "dotenv": "^8.0.0",
+    "graphql": "^14.1.1",
+    "graphql-anywhere": "^4.1.7",
+    "graphql-tag": "^2.8.0",
+    "isomorphic-fetch": "^2.2.1",
+    "next": "^8.0.3",
+    "next-with-apollo": "^3.4.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.8.3",
+    "react-apollo": "^2.0.4",
+    "react-chips": "^0.8.0",
+    "react-dom": "^16.8.3",
+    "react-google-login": "^5.0.4",
+    "react-switch": "^5.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
