@@ -1,5 +1,14 @@
 {
   "presets": ["next/babel"],
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": "css"
+      }
+    ]
+  ],
   "env": {
     "production": {
       "plugins": ["emotion"]
