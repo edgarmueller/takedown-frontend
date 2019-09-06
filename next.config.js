@@ -1,45 +1,22 @@
-const withCSS = require("@zeit/next-css");
+const antdLessLoader = require("next-antd-aza-less");
 require("dotenv").config();
 
-const path = require("path");
-const Dotenv = require("dotenv-webpack");
+if (typeof require !== "undefined") {
+  require.extensions[".less"] = file => {};
+}
 
-/* Without CSS Modules, with PostCSS */
-module.exports = withCSS({
-  target: "serverless",
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      const antStyles = /antd\/.*?\/style\/css.*?/;
-      const origExternals = [...config.externals];
-      config.externals = [
-        (context, request, callback) => {
-          if (request.match(antStyles)) return callback();
-          if (typeof origExternals[0] === "function") {
-            origExternals[0](context, request, callback);
-          } else {
-            callback();
-          }
-        },
-        ...(typeof origExternals[0] === "function" ? [] : origExternals)
-      ];
-
-      config.module.rules.unshift({
-        test: antStyles,
-        use: "null-loader"
-      });
-    }
-    config.plugins = config.plugins || [];
-
-    config.plugins = [
-      ...config.plugins,
-
-      // Read the .env file
-      new Dotenv({
-        path: path.join(__dirname, ".env"),
-        systemvars: true
-      })
-    ];
-
-    return config;
+module.exports = antdLessLoader({
+  cssModules: true,
+  cssLoaderOptions: {
+    importLoaders: 1,
+    localIdentName: "[local]___[hash:base64:5]"
+  },
+  lessLoaderOptions: {
+    javascriptEnabled: true
+  },
+  publicRuntimeConfig: {
+    // Will be available on both server and client
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME
   }
 });
