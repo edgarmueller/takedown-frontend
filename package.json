@@ -27,21 +27,18 @@
     "apollo-link-context": "^1.0.17",
     "babel-plugin-import": "^1.12.0",
     "cloudinary-react": "^1.1.4",
-    "dotenv": "^8.0.0",
     "graphql": "^14.1.1",
     "graphql-anywhere": "^4.1.7",
     "graphql-tag": "^2.8.0",
     "isomorphic-fetch": "^2.2.1",
     "next": "^8.0.3",
     "next-with-apollo": "^3.4.0",
-    "null-loader": "^3.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.8.3",
     "react-apollo": "^2.0.4",
     "react-chips": "^0.8.0",
     "react-dom": "^16.8.3",
-    "react-google-login": "^5.0.4",
-    "react-switch": "^5.0.0"
+    "react-google-login": "^5.0.4"
   },
   "husky": {
     "hooks": {
