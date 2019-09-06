@@ -1,9 +1,10 @@
 import { useEffect, useState, Fragment, useCallback } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { notification, Button, Icon, Menu } from "antd";
+import { notification, Button, Icon, Menu, Drawer } from "antd";
 import CompletedList from "../CompletedList";
 import LinkList from "../LinkList";
+import Submit from "../Submit";
 
 export const allLinks = gql`
   query {
@@ -33,6 +34,7 @@ function AllLinks() {
   const { data, loading, error } = useQuery(allLinks);
   const [displayDone, setDisplayDone] = useState(false);
   const [current, setCurrent] = useState("todo");
+  const [visible, setVisible] = useState(false);
   const handleClick = useCallback(
     e => {
       setCurrent(e.key);
@@ -88,9 +90,23 @@ function AllLinks() {
           {current == "todo" ? (
             <div style={{ display: "flex", flexDirection: "row" }}>
               <LinkList links={todoLinks} tags={allTags} />
-              <Button type="primary" icon="plus" style={{ margin: "0.5rem" }}>
+              <Button
+                type="primary"
+                icon="plus"
+                style={{ margin: "0.5rem" }}
+                onClick={() => setVisible(true)}
+              >
                 Add link
               </Button>
+              <Drawer
+                title="Basic Drawer"
+                placement="right"
+                closable
+                onClose={() => setVisible(false)}
+                visible={visible}
+              >
+                <Submit onSubmit={() => setVisible(false)} />
+              </Drawer>
             </div>
           ) : current == "done" ? (
             <CompletedList links={doneLinks} tags={allTags} />

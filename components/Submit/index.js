@@ -1,7 +1,8 @@
-import { Mutation } from "react-apollo";
+import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Form, H1, Input } from "./styles";
 import { allLinks } from "../AllLinks";
+import { useEffect, useState } from "react";
+import { notification, Form, Input } from "antd";
 
 const handleSubmit = createLink => e => {
   e.preventDefault();
@@ -20,29 +21,56 @@ const handleSubmit = createLink => e => {
   }
 
   createLink({ variables: { url, tags } });
-
-  // reset form
-  e.target.elements.url.value = "";
-  e.target.elements.tags.value = "";
 };
 
-function Submit() {
-  return (
-    <Mutation mutation={CREATE_LINK} refetchQueries={[{ query: allLinks }]}>
-      {(createLink, { loading, error }) => {
-        if (error) {
-          return "an error occurred";
-        }
+function Submit({ onSubmit }) {
+  const [createLink, { loading, error }] = useMutation(CREATE_LINK, {
+    refetchQueries: [{ query: allLinks }]
+  });
+  useEffect(() => {
+    //setIsError(error !== undefined);
+    if (error) {
+      notification.error({
+        message: "Notification Title",
+        description: error.message
+      });
+    }
+  }, [error]);
+  const [url, setUrl] = useState("");
+  const [tags, setTags] = useState("");
 
-        return (
-          <Form onSubmit={handleSubmit(createLink)} style={{ display: "flex" }}>
-            <Input placeholder="url" name="url" />
-            <Input placeholder="tags" name="tags" />
-            <button type="submit">Add link</button>
-          </Form>
-        );
+  return (
+    <Form
+      layout="vertical"
+      onSubmit={e => {
+        handleSubmit(createLink)(e);
+        setUrl("");
+        setTags("");
+        onSubmit();
       }}
-    </Mutation>
+    >
+      <Form.Item>
+        <Input
+          placeholder="url"
+          name="url"
+          value={url}
+          onChange={({ target: { value } }) => {
+            setUrl(value);
+          }}
+        />
+      </Form.Item>
+      <Form.Item>
+        <Input
+          placeholder="tags"
+          name="tags"
+          value={tags}
+          onChange={({ target: { value } }) => {
+            setTags(value);
+          }}
+        />
+      </Form.Item>
+      <button type="submit">Add link</button>
+    </Form>
   );
 }
 
