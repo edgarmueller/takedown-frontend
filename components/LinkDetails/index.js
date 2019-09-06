@@ -39,6 +39,14 @@ export default ({ link, tags }) => {
         onClick={deleteLink}
         style={{ margin: "0.5rem" }}
       />
+      <Button
+        type="primary"
+        shape="circle"
+        icon="link"
+        href={link.url}
+        target="_blank"
+        style={{ margin: "0.5rem" }}
+      />
       <div style={{ flex: 1 }}>
         <CloudinaryContext
           cloudName={publicRuntimeConfig.CLOUDINARY_CLOUD_NAME}
