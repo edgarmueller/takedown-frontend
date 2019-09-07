@@ -5,8 +5,6 @@ import Tags from "../Tags";
 import { Button } from "antd";
 import { useMutation } from "react-apollo";
 import { allLinks } from "../AllLinks";
-import getConfig from "next/config";
-const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 const DELETE_LINK = gql`
   mutation deleteLink($id: ID!, $deleted: Boolean) {
@@ -48,9 +46,7 @@ export default ({ link, tags }) => {
         style={{ margin: "0.5rem" }}
       />
       <div style={{ flex: 1 }}>
-        <CloudinaryContext
-          cloudName={publicRuntimeConfig.CLOUDINARY_CLOUD_NAME}
-        >
+        <CloudinaryContext cloudName={process.env.CLOUDINARY_CLOUD_NAME}>
           <Image publicId={link.thumbnailId} />
         </CloudinaryContext>
       </div>

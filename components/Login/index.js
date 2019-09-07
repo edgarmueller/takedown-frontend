@@ -2,8 +2,6 @@ import { Mutation, ApolloConsumer, Query } from "react-apollo";
 import gql from "graphql-tag";
 import GoogleLogin from "react-google-login";
 import { Fragment } from "react";
-import getConfig from "next/config";
-const { publicRuntimeConfig } = getConfig();
 import { allLinks } from "../AllLinks";
 
 const responseGoogle = response => {};
@@ -29,7 +27,7 @@ function Login() {
                     {client => {
                       return (
                         <GoogleLogin
-                          clientId={publicRuntimeConfig.GOOGLE_CLIENT_ID}
+                          clientId={process.env.GOOGLE_CLIENT_ID}
                           buttonText="Login"
                           onSuccess={async resp => {
                             if (resp.Zi.access_token) {

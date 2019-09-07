@@ -14,7 +14,7 @@ module.exports = antdLessLoader({
   lessLoaderOptions: {
     javascriptEnabled: true
   },
-  publicRuntimeConfig: {
+  env: {
     // Will be available on both server and client
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME
