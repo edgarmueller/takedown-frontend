@@ -1,6 +1,7 @@
 import { Query, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { allLinks } from "../AllLinks";
+import { Switch, Checkbox } from "antd";
 
 const complete = gql`
   mutation complete($id: ID!, $done: Boolean) {
@@ -22,13 +23,16 @@ const Done = ({ link }) => {
             <ErrorMessage message={`An error occurred: ${error.message}`} />
           );
         return (
-          <input
-            type="checkbox"
+          <Checkbox
             checked={link.done === true}
+            unCheckedChildren={'READ'}
+            size={"default"}
             onChange={() => {
               complete({ variables: { id: link.id, done: !link.done } });
             }}
-          />
+          >
+            Mark As Read
+            </Checkbox>
         );
       }}
     </Mutation>
