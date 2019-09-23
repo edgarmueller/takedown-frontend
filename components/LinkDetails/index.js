@@ -1,10 +1,9 @@
 import { CloudinaryContext, Image } from "cloudinary-react";
 import gql from "graphql-tag";
-import { LinkDetails } from "./styles";
-import Tags from "../Tags";
-import { Button } from "antd";
+import { Button, List } from "antd";
 import { useMutation } from "react-apollo";
 import { allLinks } from "../AllLinks";
+import Done from "../Done";
 
 const DELETE_LINK = gql`
   mutation deleteLink($id: ID!, $deleted: Boolean) {
@@ -12,7 +11,7 @@ const DELETE_LINK = gql`
   }
 `;
 
-export default ({ link, tags }) => {
+export default ({ link }) => {
   const [deleteLink, { loading, error }] = useMutation(DELETE_LINK, {
     variables: {
       id: link.id,
@@ -21,35 +20,30 @@ export default ({ link, tags }) => {
     refetchQueries: [{ query: allLinks }]
   });
   return (
-    <LinkDetails>
-      <strong style={{ width: "15rem", overflowWrap: "break-word" }}>
-        {link.title}
-      </strong>
-      <div style={{ marginLeft: "0.5rem", marginRight: "0.5rem", flex: 1 }}>
-        <div style={{ textDecoration: "underline" }}>{link.description}</div>
-        <div>{link.description}</div>
-        <div>{link.updatedAt.substr(0, 10)}</div>
-      </div>
-      <Button
-        type="primary"
-        shape="circle"
-        icon="delete"
-        onClick={deleteLink}
-        style={{ margin: "0.5rem" }}
-      />
-      <Button
-        type="primary"
-        shape="circle"
-        icon="link"
-        href={link.url}
-        target="_blank"
-        style={{ margin: "0.5rem" }}
-      />
-      <div style={{ flex: 1 }}>
+    <List.Item
+      extra={
         <CloudinaryContext cloudName={process.env.CLOUDINARY_CLOUD_NAME}>
           <Image publicId={link.thumbnailId} />
         </CloudinaryContext>
-      </div>
-    </LinkDetails>
+      }
+      title={link.title}
+      actions={[
+          <Button
+            icon="delete"
+            onClick={deleteLink}
+          />,
+          <Button
+            icon="link"
+            href={link.url}
+            target="_blank"
+          />,
+          <Done link={link} />,
+      ]}
+      >
+      <List.Item.Meta 
+        title={<strong>{link.title}</strong>}
+        description={link.updatedAt.substr(0, 10)} 
+      />
+    </List.Item>
   );
 };

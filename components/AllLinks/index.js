@@ -2,7 +2,6 @@ import { useEffect, useState, Fragment, useCallback } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { notification, Button, Icon, Menu, Drawer } from "antd";
-import CompletedList from "../CompletedList";
 import LinkList from "../LinkList";
 import Submit from "../Submit";
 
@@ -72,6 +71,14 @@ function AllLinks() {
 
     return (
       <Fragment>
+        <Button
+          type="primary"
+          icon="plus"
+          style={{ margin: "0.5rem" }}
+          onClick={() => setVisible(true)}
+        >
+          Add link
+              </Button>
         <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
           <Menu.Item key="todo">
             <Icon type="read" />
@@ -86,18 +93,10 @@ function AllLinks() {
             Deleted
           </Menu.Item>
         </Menu>
-        <div>
+        <div style={{ display: "flex", flexDirection: "row" }}>
           {current == "todo" ? (
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <Fragment>
               <LinkList links={todoLinks} tags={allTags} />
-              <Button
-                type="primary"
-                icon="plus"
-                style={{ margin: "0.5rem" }}
-                onClick={() => setVisible(true)}
-              >
-                Add link
-              </Button>
               <Drawer
                 title="Basic Drawer"
                 placement="right"
@@ -107,11 +106,11 @@ function AllLinks() {
               >
                 <Submit onSubmit={() => setVisible(false)} />
               </Drawer>
-            </div>
+            </Fragment>
           ) : current == "done" ? (
-            <CompletedList links={doneLinks} tags={allTags} />
+            <LinkList links={doneLinks} tags={allTags} />
           ) : (
-            <CompletedList links={deletedLinks} tags={allTags} />
+            <LinkList links={deletedLinks} tags={allTags} />
           )}
         </div>
       </Fragment>
