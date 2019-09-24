@@ -1,4 +1,5 @@
 import App, { Container } from "next/app";
+import Head from "next/head";
 import { ApolloProvider } from "react-apollo";
 import withApollo from "../lib/withApollo";
 
@@ -34,6 +35,10 @@ class TakedownApp extends App {
 
     return (
       <Container>
+        <Head>
+          <title>takedown</title>
+          <meta name="viewport" content="width=device-width"></meta>
+        </Head>
         <ApolloProvider client={apollo}>
           <Component {...pageProps} />
         </ApolloProvider>
