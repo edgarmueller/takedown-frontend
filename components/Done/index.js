@@ -1,7 +1,7 @@
-import { Query, Mutation } from "react-apollo";
+import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import { allLinks } from "../AllLinks";
-import { Switch, Checkbox } from "antd";
+import { Checkbox } from "antd";
 
 const complete = gql`
   mutation complete($id: ID!, $done: Boolean) {
