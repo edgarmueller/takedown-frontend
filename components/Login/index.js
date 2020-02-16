@@ -30,10 +30,10 @@ function Login() {
                           clientId={process.env.GOOGLE_CLIENT_ID}
                           buttonText="Login"
                           onSuccess={async resp => {
-                            if (resp.Zi.access_token) {
+                            if (resp.accessToken) {
                               const res = await authGoogle({
                                 variables: {
-                                  token: resp.Zi.access_token
+                                  token: resp.accessToken
                                 }
                               });
                               localStorage.setItem(
