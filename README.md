@@ -1,5 +1,3 @@
 # takedown-frontend
 
-## Deploy
-
-`now -e GOOGLE_CLIENT_ID=<google client id>`
+next.js based bookmarking application.
