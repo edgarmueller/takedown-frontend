@@ -1,22 +1,31 @@
-const antdLessLoader = require("next-antd-aza-less");
-require("dotenv").config();
+/* eslint-disable */
+const withLess = require("@zeit/next-less");
 
-if (typeof require !== "undefined") {
-  require.extensions[".less"] = file => {};
-}
-
-module.exports = antdLessLoader({
-  cssModules: true,
-  cssLoaderOptions: {
-    importLoaders: 1,
-    localIdentName: "[local]___[hash:base64:5]"
-  },
+module.exports = withLess({
   lessLoaderOptions: {
     javascriptEnabled: true
   },
-  env: {
-    // Will be available on both server and client
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      const antStyles = /antd\/.*?\/style.*?/;
+      const origExternals = [...config.externals];
+      config.externals = [
+        (context, request, callback) => {
+          if (request.match(antStyles)) return callback();
+          if (typeof origExternals[0] === "function") {
+            origExternals[0](context, request, callback);
+          } else {
+            callback();
+          }
+        },
+        ...(typeof origExternals[0] === "function" ? [] : origExternals)
+      ];
+
+      config.module.rules.unshift({
+        test: antStyles,
+        use: "null-loader"
+      });
+    }
+    return config;
   }
 });
