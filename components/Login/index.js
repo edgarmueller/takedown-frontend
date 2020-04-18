@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { allLinks } from "../AllLinks";
 
 const responseGoogle = response => {
-  console.log("error response", response);
+  console.error("Error while logging in", response);
 };
 
 const IS_LOGGED_IN = gql`
@@ -21,12 +21,11 @@ function Login() {
     <Fragment>
       <Query query={allLinks}>
         {({ loading, error }) => {
-          console.log(process.env.GOOGLE_CLIENT_ID);
+          // TODO: make use of loading and error
           return (
             <Mutation mutation={signInGoogle}>
               {(authGoogle, { loading, error }) => {
-                console.log("loading", loading);
-                console.log("error", error);
+                // TODO: make use of loading and error
                 return (
                   <ApolloConsumer>
                     {client => {
@@ -35,7 +34,6 @@ function Login() {
                           clientId={process.env.GOOGLE_CLIENT_ID}
                           buttonText="Login"
                           onSuccess={async resp => {
-                            console.log("resp", resp);
                             if (resp.accessToken) {
                               const res = await authGoogle({
                                 variables: {

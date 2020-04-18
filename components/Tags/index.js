@@ -26,7 +26,6 @@ const Tags = ({ link, tags }) => {
           <Chips
             value={link.tags}
             onChange={tags => {
-              console.log("setting tags", tags);
               setTags({ variables: { id: link.id, tags } });
             }}
             suggestions={tags.map(t => t.name)}
