@@ -4,7 +4,9 @@ import GoogleLogin from "react-google-login";
 import { Fragment } from "react";
 import { allLinks } from "../AllLinks";
 
-const responseGoogle = response => {};
+const responseGoogle = response => {
+  console.log("error response", response);
+};
 
 const IS_LOGGED_IN = gql`
   query {
@@ -19,9 +21,12 @@ function Login() {
     <Fragment>
       <Query query={allLinks}>
         {({ loading, error }) => {
+          console.log(process.env.GOOGLE_CLIENT_ID);
           return (
             <Mutation mutation={signInGoogle}>
               {(authGoogle, { loading, error }) => {
+                console.log("loading", loading);
+                console.log("error", error);
                 return (
                   <ApolloConsumer>
                     {client => {
@@ -30,6 +35,7 @@ function Login() {
                           clientId={process.env.GOOGLE_CLIENT_ID}
                           buttonText="Login"
                           onSuccess={async resp => {
+                            console.log("resp", resp);
                             if (resp.accessToken) {
                               const res = await authGoogle({
                                 variables: {
