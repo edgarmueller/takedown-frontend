@@ -1,5 +1,11 @@
 {
   "version": 2,
   "alias": "takedown.now.sh",
-  "builds": [{ "src": "next.config.js", "use": "@now/next" }]
+  "builds": [{ "src": "next.config.js", "use": "@now/next" }],
+  "build": {
+    "env": {
+      "GOOGLE_CLIENT_ID": "@google_client_id",
+      "CLOUDINARY_CLOUD_NAME": "@cloudinary_cloud_name"
+    }
+  }
 }
