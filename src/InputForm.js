@@ -1,9 +1,11 @@
 export const InputForm = ({
   id,
   label,
+  onChange,
   onSubmit,
   buttonLabel = "Submit",
   clearInput = true,
+  showButton = true,
   primaryButton = false,
 }) => {
   let input;
@@ -23,18 +25,21 @@ export const InputForm = ({
         id={id}
         className="w-full m-1 p-2 appearance-none text-gray-700 text-sm focus:outline-none col-span-2"
         placeholder={label}
+        onChange={onChange}
         ref={(node) => {
           input = node;
         }}
       />
-      <button
-        type="submit"
-        className={`w-full m-1 p-2 text-sm rounded-lg font-semibold uppercase lg:w-auto ${
-          primaryButton ? "text-blue-400" : "text-gray-800"
-        }`}
-      >
-        {buttonLabel}
-      </button>
+      {showButton && (
+        <button
+          type="submit"
+          className={`w-full m-1 p-2 text-sm rounded-lg font-semibold uppercase lg:w-auto ${
+            primaryButton ? "text-blue-400" : "text-gray-800"
+          }`}
+        >
+          {buttonLabel}
+        </button>
+      )}
     </form>
   );
 };
