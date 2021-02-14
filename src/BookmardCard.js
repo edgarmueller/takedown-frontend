@@ -8,6 +8,7 @@ export const BookmarkCard = ({
   title,
   tags,
   thumbnailId,
+  timestamp,
   onDeleteCompleted,
 }) => (
   <div class="w-full justify-center md:px-4 lg:px-6 py-5">
@@ -22,7 +23,7 @@ export const BookmarkCard = ({
         />
       </a>
       <div class="flex flex-col justify-items-start space-y-4 align-middle mt-5">
-        <div class="text-sm font-medium">NOVEMBER 1,2019</div>
+        <div class="text-sm font-medium">{timestamp}</div>
         <Tags tags={tags} />
         <button class="-rounded text-sm font-medium text-left">
           MARK AS READ

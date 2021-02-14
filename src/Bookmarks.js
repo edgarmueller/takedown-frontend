@@ -11,6 +11,7 @@ const GET_BOOKMARKS = gql`
       title
       thumbnailId
       tags
+      createdAt
     }
   }
 `;
@@ -75,6 +76,7 @@ export const Bookmarks = () => {
             <li key={b.id} className="pt-3 pb-3">
               <div className="flex flex-row">
                 <BookmarkCard
+                  timestamp={b.createdAt}
                   url={b.url}
                   bookmarkId={b.id}
                   title={b.title}
