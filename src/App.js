@@ -118,7 +118,7 @@ const Outline = ({ children }) => {
     fetchMe().then((signedIn) => setSignedIn(signedIn));
   }, []);
   return (
-    <div className="px-5 flex-col max-w-2xl mx-auto flex ">
+    <div className="px-5 flex-col max-w-3xl mx-auto flex ">
       {isSignedIn ? (
         <>
           <Link to="/" className="fixed top-2 left-5 font-bold">

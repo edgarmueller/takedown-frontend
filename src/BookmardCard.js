@@ -4,37 +4,33 @@ import { Tags } from "./Tags";
 
 export const BookmarkCard = ({
   bookmarkId,
+  url,
   title,
   tags,
   thumbnailId,
   onDeleteCompleted,
 }) => (
-  <div class="w-full md:px-4 lg:px-6 py-5">
-    <div>
-      <div>
+  <div class="w-full justify-center md:px-4 lg:px-6 py-5">
+    <h1 class="text-lg">{title}</h1>
+    <div className="flex flex-row space-x-4">
+      <a href={url} target="_blank" rel="noreferrer">
         <Image
-          className="h-56 w-full border-white border-8 hover:opacity-25"
+          className="h-56 border-white border-8 hover:opacity-25"
           publicId={thumbnailId}
+          width="auto"
+          responsive
         />
-      </div>
-      <div class="px-4 py-4 md:px-10">
-        <h1 class="font-bold text-lg">{title}</h1>
-        {/*<p class="py-4">*TODO}</p>*/}
-        <div class="flex flex-wrap pt-8">
-          <div class="w-full md:w-1/3 text-sm font-medium">NOVEMBER 1,2019</div>
-          <div class="w-full md:w-1/3 text-green-500 text-sm font-medium">
-            MARK AS READ
-          </div>
-          <DeleteBookmarkButton
-            bookmarkId={bookmarkId}
-            onCompleted={onDeleteCompleted}
-          />
-        </div>
-        <div className="flex flex-wrap pt-8">
-          <div class="w-full md:w-2/3">
-            <Tags tags={tags} />
-          </div>
-        </div>
+      </a>
+      <div class="flex flex-col justify-items-start space-y-4 align-middle mt-5">
+        <div class="text-sm font-medium">NOVEMBER 1,2019</div>
+        <Tags tags={tags} />
+        <button class="-rounded text-sm font-medium text-left">
+          MARK AS READ
+        </button>
+        <DeleteBookmarkButton
+          bookmarkId={bookmarkId}
+          onCompleted={onDeleteCompleted}
+        />
       </div>
     </div>
   </div>

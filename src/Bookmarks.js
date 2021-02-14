@@ -47,6 +47,7 @@ export const Bookmarks = () => {
           <li key={b.id} className="pt-3 pb-3">
             <div className="flex flex-row">
               <BookmarkCard
+                url={b.url}
                 bookmarkId={b.id}
                 title={b.title}
                 thumbnailId={b.thumbnailId}

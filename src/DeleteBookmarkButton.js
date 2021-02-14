@@ -15,7 +15,7 @@ export const DeleteBookmarkButton = ({ bookmarkId, onCompleted }) => {
   });
   return (
     <button
-      className="w-full md:w-1/3 text-red-500 text-sm font-medium"
+      className="text-sm font-medium text-left"
       onClick={(e) => {
         e.preventDefault();
         deleteBookmark({ variables: { bookmarkId } });
