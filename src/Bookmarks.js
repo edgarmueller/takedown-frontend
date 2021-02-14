@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { Image } from "cloudinary-react";
+import { gql, useQuery } from "@apollo/client";
+import { BookmarkCard } from "./BookmardCard";
 
 const GET_BOOKMARKS = gql`
   query Bookmarks {
@@ -9,15 +9,7 @@ const GET_BOOKMARKS = gql`
       url
       title
       thumbnailId
-    }
-  }
-`;
-
-const DELETE_BOOKMARK = gql`
-  mutation DeleteBookmark($bookmarkId: String!) {
-    deleteBookmark(input: { bookmarkId: $bookmarkId }) {
-      deleted
-      bookmarkId
+      tags
     }
   }
 `;
@@ -28,12 +20,6 @@ export const Bookmarks = () => {
     fetchPolicy: "no-cache",
     nextFetchPolicy: "no-cache",
     errorPolicy: "all",
-  });
-  const [deleteBookmark] = useMutation(DELETE_BOOKMARK, {
-    refetchQueries: [{ query: GET_BOOKMARKS }],
-    onCompleted: () => {
-      refetch();
-    },
   });
 
   useEffect(() => {
@@ -49,29 +35,25 @@ export const Bookmarks = () => {
   if (!bookmarks) {
     return <>No bookmarks yet. Add one via 'Add bookmark'</>;
   }
+  console.log(bookmarks);
 
   return (
     <>
-      <div className="object-top text-6xl font-bold text-purple-600 mt-7 mb-7">
+      <div className="object-top text-6xl font-bold text-blac mt-7 mb-7">
         Hello!
       </div>
       <ul className="list-none">
         {bookmarks.map((b) => (
           <li key={b.id} className="pt-3 pb-3">
-            <a key={b.url} href={b.url} className="underline">
-              {b.title}
-            </a>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                console.log("deleting", b.id);
-                deleteBookmark({ variables: { bookmarkId: b.id } });
-              }}
-              className="ml-1 bg-red-400 rounded text-white text-xs pl-1 pr-1"
-            >
-              DEL
-            </button>
-            <Image publicId={b.thumbnailId} />
+            <div className="flex flex-row">
+              <BookmarkCard
+                bookmarkId={b.id}
+                title={b.title}
+                thumbnailId={b.thumbnailId}
+                tags={b.tags}
+                onDeleteCompleted={refetch}
+              />
+            </div>
           </li>
         ))}
       </ul>
