@@ -23,7 +23,7 @@ export const InputForm = ({
       <input
         type="text"
         id={id}
-        className="w-full m-1 p-2 appearance-none text-gray-700 text-sm focus:outline-none col-span-2"
+        className="w-full rounded m-1 p-2 appearance-none text-gray-700 text-sm focus:outline-none col-span-2"
         placeholder={label}
         onChange={onChange}
         ref={(node) => {

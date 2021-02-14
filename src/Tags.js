@@ -1,7 +1,7 @@
 export const Tags = ({ tags = [] }) => {
   return (
-    <div class="text-sm font-medium">
-      TAGS:
+    <div class="text-sm font-medium text-gray-400">
+      APPLIED TAGS:
       {tags.length > 0 ? (
         (tags || []).map((t) => <span className="text-blue-700 px-1">{t}</span>)
       ) : (

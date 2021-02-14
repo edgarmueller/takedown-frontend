@@ -18,20 +18,8 @@ export const AddBookmark = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [tags, setTags] = useState([]);
   return (
-    <div>
-      <InputForm
-        label="Add the URL that you want to bookmark"
-        onSubmit={(value) => {
-          if (!value) {
-            return;
-          }
-          addBookmark({ variables: { url: value, tags } });
-          setShowSuccess(true);
-          setTimeout(() => setShowSuccess(false), 4000);
-        }}
-        primaryButton
-      />
-
+    <div className="mt-5">
+      <h1 className="text-xl mt-5 mb-5">Add a new bookmark</h1>
       <InputForm
         id="tags"
         onSubmit={(value) => {
@@ -46,6 +34,19 @@ export const AddBookmark = () => {
       <div className="m-1 mt-2">
         <Tags tags={tags}></Tags>
       </div>
+      <InputForm
+        label="Add the URL that you want to bookmark"
+        onSubmit={(value) => {
+          if (!value) {
+            return;
+          }
+          addBookmark({ variables: { url: value, tags } });
+          setShowSuccess(true);
+          setTimeout(() => setShowSuccess(false), 4000);
+          setTags([]);
+        }}
+        primaryButton
+      />
       <div className="m-1 flex flex-row">
         <Link className="py-2 sm:text-sm underline" to="/">
           BACK TO OVERVIEW

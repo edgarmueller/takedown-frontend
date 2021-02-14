@@ -11,7 +11,9 @@ const DELETE_BOOKMARK = gql`
 
 export const DeleteBookmarkButton = ({ bookmarkId, onCompleted }) => {
   const [deleteBookmark] = useMutation(DELETE_BOOKMARK, {
-    onCompleted,
+    onCompleted: () => {
+      onCompleted();
+    },
   });
   return (
     <button
