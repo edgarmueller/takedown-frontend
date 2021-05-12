@@ -15,7 +15,7 @@
     "axios": "^0.21.1",
     "cloudinary-react": "^1.6.8",
     "graphql": "^15.5.0",
-    "postcss": "^7.0.35",
+    "postcss": "^8.2.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
